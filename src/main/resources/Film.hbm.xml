@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="ua.kyiv.mesharea.films.entity.Film" table="film" schema="main">
+        <id name="id">
+            <column name="id" sql-type="integer" not-null="true"/>
+            <generator class="increment"/>
+        </id>
+        <property name="name">
+            <column name="name" sql-type="text"/>
+        </property>
+        <property name="year">
+            <column name="year" sql-type="text" not-null="true"/>
+        </property>
+        <property name="director">
+            <column name="director" sql-type="text" not-null="true"/>
+        </property>
+        <property name="actors">
+            <column name="actors" sql-type="text" not-null="true"/>
+        </property>
+        <property name="genre">
+            <column name="genre" sql-type="text" not-null="true"/>
+        </property>
+        <property name="rating">
+            <column name="rating" sql-type="text" not-null="true"/>
+        </property>
+        <property name="country">
+            <column name="country" sql-type="text" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

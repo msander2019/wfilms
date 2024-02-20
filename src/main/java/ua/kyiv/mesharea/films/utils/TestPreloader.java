@@ -1,0 +1,65 @@
+package ua.kyiv.mesharea.films.utils;
+
+import javafx.application.Platform;
+import javafx.application.Preloader;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
+public class TestPreloader extends Preloader {
+    private Stage preloaderStage;
+    private Scene scene;
+    private ProgressBar progressBar;
+
+    public TestPreloader() {
+    }
+
+    @Override
+    public void init() throws Exception {
+        Platform.runLater(() -> {
+            Label title = new Label("Loading...");
+            title.setTextAlignment(TextAlignment.CENTER);
+            progressBar = new ProgressBar();
+            progressBar.setMinWidth(300);
+
+            VBox root = new VBox(title, progressBar);
+            root.setAlignment(Pos.CENTER);
+
+            scene = new Scene(root, 350, 100);
+        });
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        this.preloaderStage = primaryStage;
+        preloaderStage.initStyle(StageStyle.UNDECORATED);
+        preloaderStage.setScene(scene);
+        preloaderStage.show();
+    }
+
+    @Override
+    public void handleApplicationNotification(PreloaderNotification info) {
+        if (info instanceof ProgressNotification) {
+            progressBar.setProgress(((ProgressNotification) info).getProgress() / 50);
+        }
+    }
+
+    @Override
+    public void handleStateChangeNotification(StateChangeNotification info) {
+        StateChangeNotification.Type type = info.getType();
+        switch (type) {
+            case BEFORE_START:
+                preloaderStage.hide();
+                break;
+            case BEFORE_INIT:
+                break;
+            case BEFORE_LOAD:
+                break;
+        }
+    }
+}
