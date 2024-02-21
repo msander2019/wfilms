@@ -13,7 +13,6 @@ public class SQLiteConnection {
     public static Connection getConnection() {
         try {
             Class.forName("org.sqlite.jdbc4.JDBC4Connection");
-            // путь к БД желательно выносить в отдельный файл настроек
             String url = "jdbc:sqlite:D:\\dev\\source\\projects\\wfilms\\src\\main\\resources\\db\\films.db";
             return DriverManager.getConnection(url);
 
